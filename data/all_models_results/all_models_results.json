@@ -1,0 +1,153 @@
+{
+  "finite_queues": {
+    "lambda4.0_ks10_kf5": {
+      "config": {
+        "lambda": 4.0,
+        "ks": 10,
+        "kf": 5
+      },
+      "E_W": 1.1969273070042017,
+      "Var_W": 0.5297827241552215,
+      "CI_95": [
+        1.195062903025114,
+        1.1987917109832893
+      ],
+      "rejection_rate": 0.8892666666666666,
+      "loss_rate": 8.499875447955743,
+      "n_trajectories": 1000
+    },
+    "lambda6.0_ks10_kf5": {
+      "config": {
+        "lambda": 6.0,
+        "ks": 10,
+        "kf": 5
+      },
+      "E_W": 1.7015624145661643,
+      "Var_W": 0.6610814665271958,
+      "CI_95": [
+        1.6987698892737624,
+        1.7043549398585662
+      ],
+      "rejection_rate": 10.106622222222223,
+      "loss_rate": 19.466444444554316,
+      "n_trajectories": 1000
+    },
+    "lambda6.0_ks20_kf10": {
+      "config": {
+        "lambda": 6.0,
+        "ks": 20,
+        "kf": 10
+      },
+      "E_W": 3.2167856634873777,
+      "Var_W": 1.6372982943557786,
+      "CI_95": [
+        3.207299710984502,
+        3.2262716159902536
+      ],
+      "rejection_rate": 5.025088888888889,
+      "loss_rate": 15.909324357239607,
+      "n_trajectories": 1000
+    },
+    "lambda8.0_ks20_kf10": {
+      "config": {
+        "lambda": 8.0,
+        "ks": 20,
+        "kf": 10
+      },
+      "E_W": 4.349842983799497,
+      "Var_W": 1.0617852545272004,
+      "CI_95": [
+        4.344330121004739,
+        4.355355846594255
+      ],
+      "rejection_rate": 25.119955555555556,
+      "loss_rate": 19.21722506100127,
+      "n_trajectories": 1000
+    }
+  },
+  "backup": {
+    "p_backup_0.0": {
+      "p_backup": 0.0,
+      "mode": "NONE",
+      "E_W": 1.7003905072688281,
+      "CI_95_half": 0.008333020215526732,
+      "loss_rate_mean": 19.54161246270213,
+      "backup_usage_mean": 0.0,
+      "n_trajectories": 200
+    },
+    "p_backup_0.25": {
+      "p_backup": 0.25,
+      "mode": "RANDOM",
+      "E_W": 1.8047019007568457,
+      "CI_95_half": 0.00870086133167769,
+      "loss_rate_mean": 17.586713390029423,
+      "backup_usage_mean": 609.03,
+      "n_trajectories": 200
+    },
+    "p_backup_0.50": {
+      "p_backup": 0.5,
+      "mode": "RANDOM",
+      "E_W": 1.931681090464312,
+      "CI_95_half": 0.008686245188098463,
+      "loss_rate_mean": 14.31945699239913,
+      "backup_usage_mean": 1214.45,
+      "n_trajectories": 200
+    },
+    "p_backup_0.75": {
+      "p_backup": 0.75,
+      "mode": "RANDOM",
+      "E_W": 2.0755293700755844,
+      "CI_95_half": 0.009596988671638051,
+      "loss_rate_mean": 8.85283241446667,
+      "backup_usage_mean": 1816.18,
+      "n_trajectories": 200
+    },
+    "p_backup_1.0": {
+      "p_backup": 1.0,
+      "mode": "SYSTEMATIC",
+      "E_W": 2.2389774421479745,
+      "CI_95_half": 0.010332714941534427,
+      "loss_rate_mean": 0.0,
+      "backup_usage_mean": 2424.33,
+      "n_trajectories": 200
+    }
+  },
+  "throttling": {
+    "t_block_0.0": {
+      "t_block": 0.0,
+      "E_W_ING": 2.860526415652,
+      "E_W_PREPA": 3.1410786131273234,
+      "ratio_PREPA_ING": 1.0980771217284413,
+      "CI_95_ING": 0.0313797939844469,
+      "CI_95_PREPA": 0.03344446523731692,
+      "n_trajectories": 100
+    },
+    "t_block_2.0": {
+      "t_block": 2.0,
+      "E_W_ING": 25.631082995365883,
+      "E_W_PREPA": 25.954861662195256,
+      "ratio_PREPA_ING": 1.0126322663341192,
+      "CI_95_ING": 0.05088908823660887,
+      "CI_95_PREPA": 0.05030120557455575,
+      "n_trajectories": 100
+    },
+    "t_block_5.0": {
+      "t_block": 5.0,
+      "E_W_ING": 30.272976882773378,
+      "E_W_PREPA": 30.710453088664508,
+      "ratio_PREPA_ING": 1.0144510468060401,
+      "CI_95_ING": 0.0790941519389321,
+      "CI_95_PREPA": 0.08378564978601233,
+      "n_trajectories": 100
+    },
+    "t_block_10.0": {
+      "t_block": 10.0,
+      "E_W_ING": 31.84283162649679,
+      "E_W_PREPA": 32.39335778464877,
+      "ratio_PREPA_ING": 1.0172888568645346,
+      "CI_95_ING": 0.10492694794349688,
+      "CI_95_PREPA": 0.10834385733900831,
+      "n_trajectories": 100
+    }
+  }
+}

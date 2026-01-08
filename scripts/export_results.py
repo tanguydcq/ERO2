@@ -66,15 +66,15 @@ def export_infinite_queue_results():
     
     random.seed(SEED)
     
-    # Paramètres
+    # Paramètres (1000 trajectoires pour IC robustes - recommandation coach 16/12/2025)
     params = {
         'lambda_rate': 4.0,
         'mu1': 2.0,
         'mu2': 5.0,
         'K': 3,
-        'n_trajectories': 30,
-        'jobs_per_trajectory': 10000,
-        'warmup_jobs': 1000
+        'n_trajectories': 1000,  # Augmenté de 30 à 1000 pour intervalles de confiance fiables
+        'jobs_per_trajectory': 5000,
+        'warmup_jobs': 500
     }
     
     # Exécuter la simulation

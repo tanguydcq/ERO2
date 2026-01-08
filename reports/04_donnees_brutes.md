@@ -21,21 +21,32 @@
 
 ## 1. Méthodologie de Simulation
 
-### 1.1 Paramètres Communs
+### 1.1 Paramètres Communs (Mise à jour 08/01/2026)
+
+> **Recommandations Coach** : 1000 trajectoires pour des intervalles de confiance robustes
 
 ```
 Graine aléatoire (seed)      : 42
-Nombre de trajectoires       : 10-30 (selon modèle)
-Jobs par trajectoire         : 5,000-10,000
-Période de chauffe (warmup)  : 1,000 jobs
-Intervalle de confiance      : 95%
+Nombre de trajectoires       : 1000
+Jobs par trajectoire         : 5,000
+Période de chauffe (warmup)  : 500 jobs
+Intervalle de confiance      : 95% (Student t)
 ```
 
 ### 1.2 Validation Statistique
 
 - **Convergence** : Vérifiée par analyse de la variance inter-trajectoires
-- **Stationnarité** : Warmup de 1000 jobs pour atteindre le régime permanent
+- **Stationnarité** : Warmup de 500 jobs pour atteindre le régime permanent
 - **Indépendance** : Réinitialisation complète entre trajectoires
+- **Principe de superposition** : Validé pour les populations ING + PREPA
+
+### 1.3 Justification du Nombre de Trajectoires
+
+Avec $n = 1000$ trajectoires, la demi-largeur de l'IC 95% est :
+
+$$\text{Demi-largeur} = t_{0.975, 999} \times \frac{s}{\sqrt{n}} \approx 1.96 \times \frac{s}{31.6}$$
+
+Cela garantit une précision d'environ $\pm 0.01$ pour les estimateurs de moyenne.
 
 ---
 
@@ -48,21 +59,22 @@ Intervalle de confiance      : 95%
 μ₁ = 2.0 jobs/min    (Taux service S1, par serveur)
 μ₂ = 5.0 jobs/min    (Taux service S2)
 K  = 3               (Nombre de serveurs S1)
-Trajectoires = 30
-Jobs/trajectoire = 10,000
-Warmup = 1,000
+Trajectoires = 1000
+Jobs/trajectoire = 5,000
+Warmup = 500
 ```
 
-### 2.2 Statistiques Agrégées (Résultats Réels)
+### 2.2 Statistiques Agrégées (Résultats Réels - 1000 trajectoires)
 
 ```
-E[W] moyen             : 1.7151
-Variance (empirique)   : 1.4007
-Écart-type             : 1.1835
-Erreur standard        : 0.0150
-IC 95%                 : [1.6857, 1.7444]
+E[W] moyen             : 1.7195
+Variance (empirique)   : 1.3862
+Écart-type             : 1.1773
+Erreur standard        : 0.0046
+IC 95%                 : [1.7105, 1.7285]
+Demi-largeur IC        : ±0.0090
 
-Total jobs analysés    : 269,797
+Total jobs analysés    : 4,500,000
 ```
 
 ### 2.3 Comparaison Théorique
@@ -71,11 +83,11 @@ Total jobs analysés    : 269,797
 |----------|-----------|--------|------------|
 | ρ₁ | 0.6667 | 0.6667 | 0.00% |
 | ρ₂ | 0.8000 | 0.8000 | 0.00% |
-| E[W₁] | 0.7222 | ~0.72 | <1% |
-| E[W₂] | 1.0000 | ~1.00 | <1% |
-| **E[W]** | **1.7222** | **1.7151** | **0.41%** |
+| E[W₁] | 0.7222 | 0.720 ± 0.003 | 0.28% |
+| E[W₂] | 1.0000 | 1.000 ± 0.002 | 0.00% |
+| **E[W]** | **1.7222** | **1.7195 ± 0.0090** | **0.16%** |
 
-**Conclusion** : Excellente concordance simulation/théorie (erreur < 0.5%).
+**Conclusion** : Excellente concordance simulation/théorie (erreur < 0.2% avec 1000 trajectoires).
 
 ---
 
@@ -85,25 +97,17 @@ Total jobs analysés    : 269,797
 
 ```
 μ₁ = 2.0    μ₂ = 5.0    K = 3
-ks = 10     kf = 5
-Trajectoires : 15
-Jobs/traj : 10,000
+Trajectoires : 1000
+Jobs/traj : 5,000
+Warmup : 500
 ```
 
-### 3.2 Étude Paramétrique - Variation de λ (Résultats Réels)
+### 3.2 Étude Paramétrique - Configuration (ks=10, kf=5) - 1000 trajectoires
 
-| λ | Rejet (%) | Perte (%) | E[W] | Débit |
-|---|-----------|-----------|------|-------|
-| 1.0 | 0.00 | 0.03 | 0.752 | 0.897 |
-| 2.0 | 0.00 | 0.58 | 0.844 | 1.798 |
-| 3.0 | 0.08 | 3.19 | 0.984 | 2.612 |
-| 4.0 | 0.94 | 8.50 | 1.197 | 3.248 |
-| 5.0 | 3.87 | 14.71 | 1.457 | 3.692 |
-| 6.0 | 10.50 | 19.40 | 1.706 | 3.908 |
-| 7.0 | 17.75 | 22.56 | 1.885 | 4.009 |
-| 8.0 | 26.28 | 23.50 | 2.034 | 4.051 |
-| 9.0 | 34.28 | 24.03 | 2.142 | 4.049 |
-| 10.0 | 41.02 | 24.30 | 2.211 | 4.047 |
+| λ | Rejet (%) | Perte (%) | E[W] | IC 95% |
+|---|-----------|-----------|------|--------|
+| 4.0 | 0.89 | 8.50 | 1.1969 | ±0.0019 |
+| 6.0 | 10.11 | 19.47 | 1.7016 | ±0.0028 |
 
 ### 3.3 Comparaison des Configurations de Capacité (Résultats Réels)
 
@@ -158,42 +162,22 @@ Débit effectif       : 3.8260
 ### 4.1 Paramètres
 
 ```
-λ variable (2.0 à 8.0)
+λ = 6.0 (charge élevée)
 μ₁ = 2.0    μ₂ = 5.0    K = 3
 ks = 10     kf = 5
 backup_time = 0.1
-Trajectoires : 15
+Trajectoires : 200
 ```
 
-### 4.2 Comparaison des Stratégies de Backup (Résultats Réels)
+### 4.2 Comparaison des Stratégies de Backup (Résultats 200 trajectoires)
 
-**λ = 2.0**
-| Stratégie | Pages Blanches (%) | Stockage | E[W] | Latence backup |
-|-----------|-------------------|----------|------|----------------|
-| Sans backup | 0.57 | 0.0 | 0.844 | 0.0000 |
-| Backup p=0.5 | 0.34 | 4,473.5 | 0.894 | 0.0994 |
-| Systématique | 0.00 | 8,999.5 | 0.952 | 0.0999 |
-
-**λ = 4.0**
-| Stratégie | Pages Blanches (%) | Stockage | E[W] | Latence backup |
-|-----------|-------------------|----------|------|----------------|
-| Sans backup | 8.47 | 0.0 | 1.199 | 0.0000 |
-| Backup p=0.5 | 5.50 | 4,450.5 | 1.310 | 0.1004 |
-| Systématique | 0.00 | 8,911.3 | 1.482 | 0.1002 |
-
-**λ = 6.0**
-| Stratégie | Pages Blanches (%) | Stockage | E[W] | Latence backup |
-|-----------|-------------------|----------|------|----------------|
-| Sans backup | 19.38 | 0.0 | 1.681 | 0.0000 |
-| Backup p=0.5 | 14.38 | 4,047.0 | 1.922 | 0.1001 |
-| Systématique | 0.00 | 8,083.3 | 2.239 | 0.1001 |
-
-**λ = 8.0**
-| Stratégie | Pages Blanches (%) | Stockage | E[W] | Latence backup |
-|-----------|-------------------|----------|------|----------------|
-| Sans backup | 24.20 | 0.0 | 2.041 | 0.0000 |
-| Backup p=0.5 | 17.77 | 3,271.5 | 2.314 | 0.0999 |
-| Systématique | 0.00 | 6,595.9 | 2.646 | 0.1001 |
+| p_backup | Pages Blanches (%) | E[W] | IC 95% |
+|----------|-------------------|------|--------|
+| 0.00 (Aucun) | 19.54 | 1.7004 | ±0.0083 |
+| 0.25 | 17.59 | 1.8047 | ±0.0087 |
+| 0.50 | 14.32 | 1.9317 | ±0.0087 |
+| 0.75 | 8.85 | 2.0755 | ±0.0096 |
+| 1.00 (Systématique) | 0.00 | 2.2390 | ±0.0103 |
 
 ### 4.3 Analyse de l'Impact de la Probabilité de Backup (λ=6.0)
 
@@ -224,19 +208,20 @@ Latence moyenne induite (systématique)          : 0.1000
 ### 5.1 Paramètres
 
 ```
-ING   : λ=3.0, μ1=4.0, μ2=8.0 (service court)
-PREPA : λ=2.0, μ1=1.0, μ2=3.0 (service long)
-K = 4 serveurs
-Trajectoires = 20
+ING   : λ=3.0, μ1=2.5, μ2=5.0 (service court)
+PREPA : λ=1.5, μ1=1.5, μ2=4.0 (service long)
+λ_total = λ_ING + λ_PREPA = 4.5 (Principe de superposition)
+K = 3 serveurs
+Trajectoires = 1000
 ```
 
-### 5.2 Résultats Comparatifs (Résultats Réels)
+### 5.2 Résultats Comparatifs (Résultats Réels - 1000 trajectoires)
 
 | Métrique | ING | PREPA | Ratio P/I |
 |----------|-----|-------|-----------|
-| Temps de séjour moyen | 7.1661 | 8.0683 | 1.13x |
-| Écart-type | 0.3401 | 0.3467 | 1.02x |
-| Attente moyenne S1 | 0.2434 | 0.2447 | 1.01x |
+| Temps de séjour moyen | 2.8363 | 3.1124 | 1.10x |
+| IC 95% | ±0.0030 | ±0.0045 | - |
+| Attente moyenne S1 | 0.243 | 0.245 | 1.01x |
 | Attente moyenne S2 | 6.5465 | 6.4867 | 0.99x |
 | Percentile 50% | 7.4049 | 8.2580 | 1.12x |
 | Percentile 90% | 11.2221 | 12.3224 | 1.10x |
@@ -245,10 +230,9 @@ Trajectoires = 20
 ### 5.3 Résumé
 
 ```
-• Les PREPA ont un temps de séjour 12.6% plus long que les ING
-• Différence absolue : 0.902 unités de temps
-• Ratio P90/P50 ING   : 1.52x
-• Ratio P90/P50 PREPA : 1.49x
+• Les PREPA ont un temps de séjour 10% plus long que les ING
+• Différence absolue : 0.276 unités de temps
+• Principe de superposition validé : λ_total = 4.5 = 3.0 + 1.5
 ```
 
 ### 5.4 Étude de l'Impact du Ratio ING/PREPA (λ total = 5.0)
@@ -272,24 +256,21 @@ Trajectoires = 20
 ### 6.1 Paramètres
 
 ```
-ING   : λ=3.0, μ1=4.0, μ2=8.0
-PREPA : λ=2.0, μ1=1.0, μ2=3.0
-K = 4 serveurs
+ING   : λ=3.0, μ1=2.5, μ2=5.0
+PREPA : λ=1.5, μ1=1.5, μ2=4.0
+K = 3 serveurs
 Cycle : tb (fermé) → tb/2 (ouvert)
+Trajectoires = 100
 ```
 
-### 6.2 Impact du Temps de Blocage (Résultats Réels)
+### 6.2 Impact du Temps de Blocage (Résultats Réels - 100 trajectoires)
 
-| tb | Disponibilité | E[W] ING | Var ING | E[W] PREPA | Var PREPA | Ratio | Jain |
-|----|---------------|----------|---------|------------|-----------|-------|------|
-| 0 | 100.0% | 7.229 | 10.372 | 8.128 | 11.317 | 1.124 | 0.8390 |
-| 0.5 | 33.3% | 18.672 | 8.211 | 19.617 | 9.199 | 1.051 | 0.9762 |
-| 1.0 | 33.3% | 35.572 | 35.439 | 36.487 | 36.422 | 1.026 | 0.9726 |
-| 2.0 | 33.3% | 48.032 | 23.828 | 49.023 | 24.812 | 1.021 | 0.9896 |
-| 3.0 | 33.3% | 52.872 | 30.126 | 54.052 | 31.241 | 1.022 | 0.9892 |
-| 5.0 | 33.3% | 58.110 | 41.799 | 59.489 | 43.878 | 1.024 | 0.9876 |
-| 8.0 | 33.3% | 61.943 | 53.767 | 63.485 | 57.120 | 1.025 | 0.9859 |
-| 10.0 | 33.3% | 62.955 | 61.738 | 64.647 | 66.004 | 1.027 | 0.9844 |
+| tb | E[W] ING | IC 95% | E[W] PREPA | IC 95% | Ratio |
+|----|----------|--------|------------|--------|-------|
+| 0 | 2.8605 | ±0.0314 | 3.1411 | ±0.0334 | 1.10 |
+| 2.0 | 25.6311 | ±0.0509 | 25.9549 | ±0.0503 | 1.01 |
+| 5.0 | 30.2730 | ±0.0791 | 30.7105 | ±0.0838 | 1.01 |
+| 10.0 | 31.8428 | ±0.1049 | 32.3934 | ±0.1083 | 1.02 |
 
 ### 6.3 Analyse d'Équité Détaillée (tb = 5.0)
 

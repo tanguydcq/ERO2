@@ -366,9 +366,9 @@ def run_multiple_simulations(
     mu1: float,
     mu2: float,
     K: int,
-    n_trajectories: int = 30,
-    jobs_per_trajectory: int = 10000,
-    warmup_jobs: int = 1000,
+    n_trajectories: int = 1000,
+    jobs_per_trajectory: int = 5000,
+    warmup_jobs: int = 500,
     seed: Optional[int] = None
 ) -> dict:
     """
@@ -379,7 +379,7 @@ def run_multiple_simulations(
         mu1: Taux de service μ1 (station 1)
         mu2: Taux de service μ2 (station 2)
         K: Nombre de serveurs à la station 1
-        n_trajectories: Nombre de simulations indépendantes
+        n_trajectories: Nombre de simulations indépendantes (1000 recommandé)
         jobs_per_trajectory: Nombre de jobs par simulation
         warmup_jobs: Période de chauffe (jobs ignorés)
         seed: Graine aléatoire (pour reproductibilité)
@@ -583,10 +583,10 @@ def main():
     MU2 = 5.0         # Taux de service station 2
     K = 3             # Nombre de serveurs à la station 1
     
-    # Paramètres de simulation
-    N_TRAJECTORIES = 30           # Nombre de simulations indépendantes
-    JOBS_PER_TRAJECTORY = 10000   # Jobs simulés par trajectoire
-    WARMUP_JOBS = 1000            # Jobs ignorés (régime transitoire)
+    # Paramètres de simulation (1000 trajectoires - recommandation coach 16/12/2025)
+    N_TRAJECTORIES = 1000         # Nombre de simulations indépendantes (augmenté pour IC robustes)
+    JOBS_PER_TRAJECTORY = 5000    # Jobs simulés par trajectoire
+    WARMUP_JOBS = 500             # Jobs ignorés (régime transitoire)
     SEED = 42                      # Graine aléatoire (None pour aléatoire)
     
     # =========================================================================

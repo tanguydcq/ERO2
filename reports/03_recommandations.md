@@ -25,7 +25,7 @@
 |--------|---------|----------------|
 | **Goulot d'étranglement** | Station 2 (serveur unique) | Augmenter μ₂ ou kf |
 | **Pages blanches** | 19% sans backup | Backup p=0.5 minimum |
-| **Équité ING/PREPA** | PREPA +12.6% | Politique PREPA_FIRST |
+| **Équité ING/PREPA** | PREPA +10% | Politique PREPA_FIRST |
 | **Pics de charge** | Système saturé | Throttling préventif |
 
 ### 1.2 Paramètres Critiques

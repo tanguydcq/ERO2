@@ -1,0 +1,73 @@
+======================================================================
+RÉSUMÉ DES RÉSULTATS - TOUS MODÈLES
+Généré: 2026-01-08 16:44:53
+======================================================================
+
+MODÈLE 2: FILES FINIES
+----------------------------------------
+  lambda4.0_ks10_kf5:
+    E[W] = 1.1969
+    Rejet = 0.89%
+    Perte = 8.50%
+
+  lambda6.0_ks10_kf5:
+    E[W] = 1.7016
+    Rejet = 10.11%
+    Perte = 19.47%
+
+  lambda6.0_ks20_kf10:
+    E[W] = 3.2168
+    Rejet = 5.03%
+    Perte = 15.91%
+
+  lambda8.0_ks20_kf10:
+    E[W] = 4.3498
+    Rejet = 25.12%
+    Perte = 19.22%
+
+
+MODÈLE 3: BACKUP
+----------------------------------------
+  p_backup = 0.0:
+    E[W] = 1.7004
+    Perte = 19.54%
+
+  p_backup = 0.25:
+    E[W] = 1.8047
+    Perte = 17.59%
+
+  p_backup = 0.5:
+    E[W] = 1.9317
+    Perte = 14.32%
+
+  p_backup = 0.75:
+    E[W] = 2.0755
+    Perte = 8.85%
+
+  p_backup = 1.0:
+    E[W] = 2.2390
+    Perte = 0.00%
+
+
+MODÈLE 4: THROTTLING
+----------------------------------------
+  t_block = 0.0:
+    E[W_ING] = 2.8605
+    E[W_PREPA] = 3.1411
+    Ratio = 1.10x
+
+  t_block = 2.0:
+    E[W_ING] = 25.6311
+    E[W_PREPA] = 25.9549
+    Ratio = 1.01x
+
+  t_block = 5.0:
+    E[W_ING] = 30.2730
+    E[W_PREPA] = 30.7105
+    Ratio = 1.01x
+
+  t_block = 10.0:
+    E[W_ING] = 31.8428
+    E[W_PREPA] = 32.3934
+    Ratio = 1.02x
+

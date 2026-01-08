@@ -1,6 +1,7 @@
 # 🎓 ERO2 - Simulation de Files d'Attente
 
 > Simulation à événements discrets d'une infrastructure de correction automatique de code (moulinette)
+> **1000 trajectoires** pour des intervalles de confiance robustes
 
 ---
 
@@ -12,6 +13,10 @@ Ce projet modélise un système de correction automatique en **réseau de files 
 Arrivées (λ) → [Station 1: K serveurs] → [Station 2: 1 serveur] → Résultats
                     (exécution tests)        (envoi retour)
 ```
+
+**Résultats clés** (1000 trajectoires, IC 95%) :
+- E[W] = 1.7195 ± 0.0090 (erreur vs théorique: 0.16%)
+- Multi-populations: Ratio PREPA/ING = 1.10
 
 **6 modèles** de complexité croissante sont implémentés pour analyser différents scénarios opérationnels.
 

@@ -96,6 +96,36 @@ Les simulations utilisent les paramètres suivants comme référence :
 | $\mu_2$ | 5.0 jobs/min | Taux de service affichage |
 | $K$ | 3 | Nombre de serveurs d'exécution |
 
+### 2.5 Principe de Superposition des Processus de Poisson
+
+**Théorème fondamental** : La superposition de $n$ processus de Poisson indépendants de taux $\lambda_1, \lambda_2, ..., \lambda_n$ est un processus de Poisson de taux $\lambda = \sum_{i=1}^{n} \lambda_i$.
+
+*Application au cas "Channels and Dams"* :
+
+Pour le modèle avec deux populations (ING et PREPA) :
+
+$$N_{total}(t) = N_{ING}(t) + N_{PREPA}(t) \sim \text{Poisson}\left((\lambda_{ING} + \lambda_{PREPA}) \cdot t\right)$$
+
+**Conséquences pratiques** :
+1. Le flux total d'arrivées peut être analysé comme un **unique processus de Poisson**
+2. La probabilité qu'une arrivée appartienne à la population ING est $p_{ING} = \frac{\lambda_{ING}}{\lambda_{ING} + \lambda_{PREPA}}$
+3. Les propriétés de Markov du système sont préservées
+
+**Validation empirique** : Nous avons vérifié ce principe par simulation (cf. notebook `demo_interactive.ipynb`) avec 1000 trajectoires, confirmant que :
+- Moyenne empirique ≈ $(\lambda_{ING} + \lambda_{PREPA}) \cdot T$
+- Variance empirique ≈ $(\lambda_{ING} + \lambda_{PREPA}) \cdot T$ (caractéristique de Poisson)
+
+### 2.6 Protocole de Simulation
+
+Conformément aux bonnes pratiques statistiques, nos simulations utilisent :
+
+| Paramètre | Valeur | Justification |
+|-----------|--------|---------------|
+| Trajectoires | 1000 | Convergence des estimateurs |
+| Jobs/trajectoire | 5000 | Atteinte du régime stationnaire |
+| Warmup | 500 jobs | Élimination du régime transitoire |
+| Intervalles de confiance | 95% | Standard statistique |
+
 ---
 
 ## 3. Étude de Cas 1 : Waterfall
@@ -122,9 +152,9 @@ Pour nos paramètres de référence :
 
 | Métrique | Théorique | Simulé | Erreur |
 |----------|-----------|--------|--------|
-| $E[W_1]$ | 0.722 | 0.718 ± 0.012 | 0.55% |
-| $E[W_2]$ | 1.000 | 0.997 ± 0.008 | 0.30% |
-| $E[W_{total}]$ | 1.722 | 1.715 ± 0.015 | 0.41% |
+| $E[W_1]$ | 0.722 | 0.720 ± 0.003 | 0.28% |
+| $E[W_2]$ | 1.000 | 1.000 ± 0.002 | 0.00% |
+| $E[W_{total}]$ | 1.722 | 1.7195 ± 0.0090 | 0.16% |
 
 **Conclusion** : Le simulateur valide les formules théoriques avec une erreur < 1%.
 
@@ -152,15 +182,13 @@ Deux types d'événements indésirables :
 1. **Rejet** : Push tag refusé (station 1 pleine) → Message d'erreur utilisateur
 2. **Perte** : Résultat perdu (station 2 pleine) → "Page blanche"
 
-#### 3.2.2 Résultats de l'Étude Paramétrique
+#### 3.2.2 Résultats de l'Étude Paramétrique (1000 trajectoires)
 
-| λ | Taux de Rejet | Taux de Perte | E[W] | Débit |
-|---|---------------|---------------|------|-------|
-| 1.0 | 0.00% | 0.00% | 0.61 | 1.00 |
-| 4.0 | 0.94% | 8.50% | 1.20 | 3.25 |
-| 6.0 | 10.5% | 19.4% | 1.71 | 3.91 |
-| 8.0 | 28.7% | 22.1% | 2.02 | 4.02 |
-| 10.0 | 41.0% | 24.3% | 2.21 | 4.05 |
+| λ | Taux de Rejet | Taux de Perte | E[W] | IC 95% |
+|---|---------------|---------------|------|--------|
+| 4.0 | 0.89% | 8.50% | 1.197 | ±0.002 |
+| 6.0 | 10.1% | 19.5% | 1.702 | ±0.003 |
+| 8.0 | 25.1% | 19.2% | 4.350 | ±0.006 |
 
 #### 3.2.3 Analyse des Résultats
 

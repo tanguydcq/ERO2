@@ -1,0 +1,23 @@
+======================================================================
+RÉSUMÉ STATISTIQUE - PROJET ERO2
+Généré le: 2026-01-08 16:31:29
+======================================================================
+
+CONFIGURATION:
+  Trajectoires: 1000
+  Jobs/trajectoire: 5000
+  Warmup: 500
+  Niveau de confiance: 95.0%
+
+MODÈLE 1 - FILES INFINIES (M/M/K → M/M/1):
+  E[W] = 1.7195
+  Var[W] = 1.3862
+  IC 95% = [1.7105, 1.7285]
+  Demi-largeur IC = ±0.0090
+  Erreur vs théorique = 0.16%
+
+MODÈLE 2 - MULTI-POPULATIONS:
+  λ_total (superposition) = 4.5
+  E[W_ING] = 2.8363
+  E[W_PREPA] = 3.1124
+  Ratio PREPA/ING = 1.10x
