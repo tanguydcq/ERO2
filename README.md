@@ -1,5 +1,14 @@
 # ERO2 - Analyse des Systèmes d'Attente
 
+**Auteurs :**
+
+- Tanguy Ducrocq
+- Quentin Gillet
+- Luke Goboyan
+- Pierre Lavielle
+- Guillaume Rodriguez
+- Louis Romain
+
 ## Structure du Rendu
 
 ### Code (`*.py`)
