@@ -46,6 +46,31 @@
     \end{figure}
 \end{frame}
 
+\begin{frame}{Paramètres du Système de Base}
+    Les simulations de référence utilisent les paramètres suivants (Section 1.3) :
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item \textbf{Flux Global} :
+        \begin{itemize}
+            \item Taux d'arrivée $\lambda = 4.0$ (jobs/unité de temps)
+        \end{itemize}
+        \vspace{0.2cm}
+        \item \textbf{Station 1 (Tests - M/M/3)} :
+        \begin{itemize}
+            \item Taux de service par serveur $\mu_1 = 2.0$
+            \item Nombre de serveurs $K = 3$
+            \item Capacité de service totale $K \cdot \mu_1 = 6.0$
+        \end{itemize}
+        \vspace{0.2cm}
+        \item \textbf{Station 2 (Affichage - M/M/1)} :
+        \begin{itemize}
+            \item Taux de service $\mu_2 = 5.0$
+        \end{itemize}
+    \end{itemize}
+    \vspace{0.3cm}
+    \textit{Note : Ces paramètres assurent la stabilité du système ($\rho < 1$).}
+\end{frame}
+
 \begin{frame}{Validation du Simulateur (Files Infinies)}
     Premier scénario (Waterfall) avec files infinies pour valider le modèle.
     \vspace{0.2cm}
